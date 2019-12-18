@@ -10,8 +10,9 @@ import java.io.IOException;
 public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().write("Some");
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/public/jsp/index.jsp");
-        requestDispatcher.forward(req, resp);
+       // resp.getWriter().write("Some");
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/public/jsp/index.jsp");
+//        requestDispatcher.forward(req, resp);
+        resp.getWriter().write("Yandex vs Googel");
     }
 }
