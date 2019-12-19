@@ -14,19 +14,19 @@ import java.util.List;
 public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      resp.getWriter().write("Some");
 //        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/public/jsp/index.jsp");
 //        requestDispatcher.forward(req, resp);
            DBConnect db = new DBConnect();
-           System.out.println("Hello");
+           
            List list = db.getDatabases();
            
-                resp.getWriter().write(list.size() + " dd");
            
-//           for(Object database : list){
-//               System.out.println(database.toString());
-//               resp.getWriter().write(database.toString());
-//           }
+           for(Object database : list){
+               System.out.println(database.toString());
+               
+               resp.getWriter().write("<li>"+ database.toString() + "</li>");
+              
+           }
            
            
     }

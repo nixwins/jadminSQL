@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 public class DBConnect {
 
-    private final String url = "jdbc:mysql://localhost:3306/information_schema";
+    private final String url = "jdbc:mysql://localhost:3306/?serverTimezone=Europe/Moscow&useSSL=false";
     private final String user = "root";
     private final String password = "birone89";
     
@@ -24,11 +24,11 @@ public class DBConnect {
     
     public DBConnect(){
         
-//        try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         databases = new ArrayList();
         
@@ -38,8 +38,8 @@ public class DBConnect {
             rs = stmt.executeQuery("SHOW DATABASES");
             System.out.println(rs.toString());
             while(rs.next()){
-                System.out.println(rs.next() +  " console: " );
-                databases.add(rs.next());
+               // System.out.println(rs.next() +  " console: " );
+                databases.add(rs.getString("database"));
             }
             
         } catch (SQLException ex) {
