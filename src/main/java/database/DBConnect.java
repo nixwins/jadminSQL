@@ -15,12 +15,11 @@ public class DBConnect {
     private final String url = "jdbc:mysql://localhost:3306/?serverTimezone=Europe/Moscow&useSSL=false";
     private final String user = "root";
     private final String password = "birone89";
-    
-    private static Connection conn;
-    private static Statement stmt;
-    private static ResultSet rs;
-    
-    private List databases;
+    private  Connection connection = null;
+
+    public Connection getConnection() {
+        return connection;
+    }
     
     public DBConnect(){
         
@@ -30,24 +29,14 @@ public class DBConnect {
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        databases = new ArrayList();
-        
+         
         try {
-            conn =  DriverManager.getConnection(url, user, password);
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery("SHOW DATABASES");
-            System.out.println(rs.toString());
-            while(rs.next()){
-               // System.out.println(rs.next() +  " console: " );
-                databases.add(rs.getString("database"));
-            }
+            connection =  DriverManager.getConnection(url, user, password);
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
     
-    public List getDatabases(){
-        return databases;
-    }
+    
 }

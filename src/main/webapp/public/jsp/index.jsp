@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <html>
     <head>
         <title>Jadmin</title>
@@ -6,5 +8,11 @@
 
     <body>
         <h1>Connecting...111133335345 </h1>
+        <% List<String> listDB = (ArrayList<String>)request.getAttribute("database"); %>
+        
+        <% for(String db : listDB){ %>
+        
+                <a href="/jadminsql/main?dbname=<%= db %>"> <%= db %></a>
+        <% } %>
     </body>
 </html>
