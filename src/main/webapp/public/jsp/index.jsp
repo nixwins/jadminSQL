@@ -7,7 +7,7 @@
     </head>
 
     <body>
-        <h1>Connecting...111133335345 </h1>
+        
         <% List<String> listDB = (ArrayList<String>)request.getAttribute("database"); %>
         
         <% for(String db : listDB){ %>

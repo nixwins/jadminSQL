@@ -6,10 +6,8 @@
 package database;
 
 import core.Model;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -19,26 +17,26 @@ import java.util.logging.Logger;
  *
  * @author admin
  */
-public class Database extends Model{
-    
-    public List<String> getListDatabase(){
-        
-        List<String> listDatabase =  new ArrayList();
-        
+public class Table extends Model{
+
+
+    public List<String> getAllTable(String database){
+          
+        List<String> tbList = new ArrayList();
+          
         try {
-            
-            ResultSet rs  = stmt.executeQuery("SHOW DATABASES");
+          
+            stmt.executeQuery("USE " + database);
+            ResultSet rs = stmt.executeQuery("SHOW TABLES");
             
             while(rs.next()){
-                listDatabase.add(rs.getString("Database"));
-                
+                tbList.add(rs.getString("Tables_in_" + database));
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Table.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return listDatabase;
+         return tbList;
     }
-    
 }

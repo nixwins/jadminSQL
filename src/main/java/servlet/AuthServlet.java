@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import core.BaseHttpServlet;
 import database.Database;
 import java.io.IOException;
 import java.io.PrintWriter;
