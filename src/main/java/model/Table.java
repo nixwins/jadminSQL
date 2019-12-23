@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package database;
+package model;
 
 import core.Model;
 import java.sql.ResultSet;
@@ -27,11 +27,13 @@ public class Table extends Model{
         try {
           
             stmt.executeQuery("USE " + database);
-            ResultSet rs = stmt.executeQuery("SHOW TABLES");
+            rs = stmt.executeQuery("SHOW TABLES");
             
             while(rs.next()){
                 tbList.add(rs.getString("Tables_in_" + database));
             }
+            
+            shutdown();
             
         } catch (SQLException ex) {
             Logger.getLogger(Table.class.getName()).log(Level.SEVERE, null, ex);

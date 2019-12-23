@@ -15,9 +15,19 @@ public class DBConnect {
     private final String url = "jdbc:mysql://localhost:3306/?serverTimezone=Europe/Moscow&useSSL=false";
     private final String user = "root";
     private final String password = "birone89";
-    private  Connection connection = null;
+
 
     public Connection getConnection() {
+        
+        Connection connection = null;       
+         
+        try {
+            connection =  DriverManager.getConnection(url, user, password);
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
         return connection;
     }
     
@@ -27,14 +37,6 @@ public class DBConnect {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-         
-        try {
-            connection =  DriverManager.getConnection(url, user, password);
-            
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
         }
     }
     

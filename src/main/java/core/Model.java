@@ -5,7 +5,9 @@
  */
 package core;
 
-import database.Database;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import model.Database;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -17,16 +19,32 @@ import java.util.logging.Logger;
  */
 public class Model {
         
-    protected Statement stmt = null;
-  
+    protected DBConnect dbcon = null;
+    protected Connection connection;
+    protected Statement stmt;
+    protected ResultSet rs;
+    
     public Model(){
  
         try {
-         
-            stmt = new DBConnect().getConnection().createStatement();
+            dbcon = new DBConnect();
+            connection = dbcon.getConnection();
+            stmt = connection.createStatement();
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
+    public void shutdown(){
+    
+        try {
+            
+            rs.close();
+            stmt.close();
+            connection.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

@@ -6,7 +6,7 @@
 package servlet;
 
 import core.BaseHttpServlet;
-import database.Database;
+import model.Database;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;

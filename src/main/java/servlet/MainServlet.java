@@ -1,7 +1,8 @@
 package servlet;
 
+import core.BaseHttpServlet;
 import core.DBConnect;
-import database.Table;
+import model.Table;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,17 +13,24 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainServlet extends HttpServlet {
+public class MainServlet extends BaseHttpServlet {
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
            String dbname = req.getParameter("dbname");
-           resp.getWriter().write(dbname);
-           Table tbl = new Table();
-           List<String> tblList = tbl.getAllTable(dbname);
+           String tblname = req.getParameter("table");
            
-           resp.setContentType("text/html");
-           for(String table : tblList){
-                resp.getWriter().write("<h2>" + table + "</h2>");
+           if(dbname != null){
+               
+                Table tbl = new Table();
+                List<String> tblList = tbl.getAllTable(dbname);
+                req.setAttribute("tables", tblList);
+                forwardView(req, resp, "tables.jsp");
            }
+           
+           if(tblname != null){
+               resp.getWriter().write(tblname);
+           }
+
     }
 }
