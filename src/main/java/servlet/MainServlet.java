@@ -14,22 +14,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainServlet extends BaseHttpServlet {
-    
+            
+     private Table tbl = new Table();
+     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
            String dbname = req.getParameter("dbname");
            String tblname = req.getParameter("table");
            
            if(dbname != null){
-               
-                Table tbl = new Table();
+       
                 List<String> tblList = tbl.getAllTable(dbname);
                 req.setAttribute("tables", tblList);
                 forwardView(req, resp, "tables.jsp");
            }
            
            if(tblname != null){
-               resp.getWriter().write(tblname);
+               
+               List<String> tblStruct = tbl.getTableStruct(tblname);
+               
+               for(String type : tblStruct){
+                  resp.getWriter().write(type); 
+               }
+               
+               
+               
            }
 
     }

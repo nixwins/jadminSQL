@@ -41,4 +41,26 @@ public class Table extends Model{
         
          return tbList;
     }
+    
+    public List<String> getTableStruct(String table){
+        
+        List<String> tblStruct = new ArrayList();
+          
+        try {
+          
+            //stmt.executeQuery("USE " + database);
+            rs = stmt.executeQuery("select * from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME="+table);
+            
+            while(rs.next()){
+                tblStruct.add(rs.getString("DATA_TYPE"));
+            }
+            
+            shutdown();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Table.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+         return tblStruct;
+    }
 }
