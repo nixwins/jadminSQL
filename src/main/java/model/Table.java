@@ -9,9 +9,12 @@ import core.Model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.entity.Column;
 
 /**
  *
@@ -33,7 +36,7 @@ public class Table extends Model{
                 tbList.add(rs.getString("Tables_in_" + database));
             }
             
-            shutdown();
+            //shutdown();
             
         } catch (SQLException ex) {
             Logger.getLogger(Table.class.getName()).log(Level.SEVERE, null, ex);
@@ -42,25 +45,27 @@ public class Table extends Model{
          return tbList;
     }
     
-    public List<String> getTableStruct(String table){
+    public List<Column> getTableStruct(String table){
         
-        List<String> tblStruct = new ArrayList();
+        List<Column> tblStructList = new ArrayList();
           
         try {
           
-            //stmt.executeQuery("USE " + database);
-            rs = stmt.executeQuery("select * from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME="+table);
-            
+            rs = stmt.executeQuery("select * from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME='"+table + "'");
+                    
             while(rs.next()){
-                tblStruct.add(rs.getString("DATA_TYPE"));
+           
+                tblStructList.add(new Column(   rs.getString("COLUMN_NAME"),
+                                                rs.getString("DATA_TYPE"),
+                                                rs.getString("COLUMN_KEY"),
+                                                rs.getString("CHARACTER_SET_NAME")
+                                            ));
             }
-            
-            shutdown();
             
         } catch (SQLException ex) {
             Logger.getLogger(Table.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-         return tblStruct;
+
+        return tblStructList;
     }
 }

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import model.entity.Column;
 
 public class MainServlet extends BaseHttpServlet {
             
@@ -19,6 +20,7 @@ public class MainServlet extends BaseHttpServlet {
      
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
            String dbname = req.getParameter("dbname");
            String tblname = req.getParameter("table");
            
@@ -27,14 +29,16 @@ public class MainServlet extends BaseHttpServlet {
                 List<String> tblList = tbl.getAllTable(dbname);
                 req.setAttribute("tables", tblList);
                 forwardView(req, resp, "tables.jsp");
+               
            }
            
            if(tblname != null){
                
-               List<String> tblStruct = tbl.getTableStruct(tblname);
+               List<Column> tblStruct = tbl.getTableStruct(tblname);
                
-               for(String type : tblStruct){
-                  resp.getWriter().write(type); 
+               for(Column col : tblStruct){
+                  resp.getWriter().write(col.getColumnName() + " ===> " + col.getDataType()); 
+                  resp.getWriter().write("\n"); 
                }
                
                

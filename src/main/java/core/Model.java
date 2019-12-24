@@ -35,7 +35,7 @@ public class Model {
         }
     }
     
-    public void shutdown(){
+    protected void shutdown(){
     
         try {
             
