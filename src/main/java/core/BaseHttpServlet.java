@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class BaseHttpServlet extends HttpServlet {
     
     protected final String viewDir = "/public/jsp/";
+    private String viewHolder;  
     
     public void  forwardView(HttpServletRequest request, HttpServletResponse response, String view){
         

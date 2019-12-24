@@ -23,7 +23,7 @@ public class MainServlet extends BaseHttpServlet {
         
            String dbname = req.getParameter("dbname");
            String tblname = req.getParameter("table");
-           
+             
            if(dbname != null){
        
                 List<String> tblList = tbl.getAllTable(dbname);

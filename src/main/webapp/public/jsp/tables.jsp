@@ -14,6 +14,7 @@
         <title>Tables</title>
     </head>
     <body>
+        <h1>Hello tables</h1>
         <% List<String> tblList = (ArrayList<String>)request.getAttribute("tables"); %>
         
         <% for(String tbl : tblList){ %>

@@ -25,7 +25,7 @@ public class Column {
     }
 
     
-
+  
     
     public String getColumnName() {
         return columnName;
