@@ -10,5 +10,9 @@
         <servlet-name>main-servlet</servlet-name>
         <url-pattern>/main</url-pattern>
     </servlet-mapping>
+<!--    <mime-mapping>
+            <extension>css</extension>
+            <mime-type>text/css</mime-type>
+    </mime-mapping>-->
 
 </web-app>

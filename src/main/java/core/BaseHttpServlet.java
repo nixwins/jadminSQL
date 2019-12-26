@@ -24,7 +24,7 @@ public abstract class BaseHttpServlet extends HttpServlet {
     private String viewHolder;  
     
     public void  forwardView(HttpServletRequest request, HttpServletResponse response, String view){
-        
+       // response.setContentType("text/html");
         try {
             RequestDispatcher dispatcher = request.getRequestDispatcher(viewDir+view);
             dispatcher.forward(request, response);

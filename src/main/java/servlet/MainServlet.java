@@ -23,13 +23,15 @@ public class MainServlet extends BaseHttpServlet {
         
            String dbname = req.getParameter("dbname");
            String tblname = req.getParameter("table");
-             
+           
+           resp.getWriter().write("Something");
+           
            if(dbname != null){
        
                 List<String> tblList = tbl.getAllTable(dbname);
                 req.setAttribute("tables", tblList);
                 forwardView(req, resp, "tables.jsp");
-               
+                
            }
            
            if(tblname != null){

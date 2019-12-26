@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author nixwins
  */
 
-@WebServlet(name = "AuthServlet", urlPatterns = {"/"})
+@WebServlet(name = "AuthServlet", urlPatterns = "/auth")
 
 public class AuthServlet extends BaseHttpServlet{
 
@@ -30,11 +30,19 @@ public class AuthServlet extends BaseHttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
        
-        Database database = new Database();
-        
-        List<String> listDB = database.getListDatabase();
-        req.setAttribute("database", listDB);
-        forwardView(req, resp, "index.jsp");
+       String username  = req.getParameter("username") != null  ? req.getParameter("username")  : ""; 
+       String passsword = req.getParameter("password") != null  ? req.getParameter("password")  : "";
+       
+        System.out.println(username + " pass:=" + passsword);
+       
+       if(username.equals("root") && passsword.equals("birone89") ){
+          req.getRequestDispatcher("/main").forward(req, resp);
+           
+       } else{
+         forwardView(req, resp, "index.jsp");  
+       }
+     ///  forwardView(req, resp, "index.jsp");  
+       
     }
  
 }
