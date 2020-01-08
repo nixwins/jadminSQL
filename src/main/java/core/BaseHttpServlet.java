@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -22,9 +23,12 @@ public abstract class BaseHttpServlet extends HttpServlet {
     
     protected final String viewDir = "/public/jsp/";
     private String viewHolder;  
+   
     
     public void  forwardView(HttpServletRequest request, HttpServletResponse response, String view){
        // response.setContentType("text/html");
+    
+              
         try {
             RequestDispatcher dispatcher = request.getRequestDispatcher(viewDir+view);
             dispatcher.forward(request, response);

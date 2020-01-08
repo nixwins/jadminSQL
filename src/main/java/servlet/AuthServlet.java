@@ -16,6 +16,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.entity.User;
+import model.service.UserService;
 
 /**
  *
@@ -26,23 +29,41 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AuthServlet extends BaseHttpServlet{
 
-    
+    private HttpSession session; 
+           
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+       
+       session = req.getSession();
+       session.setAttribute("isLogin", false);
+       
+       User user = new User();
+       UserService userService = new UserService();
        
        String username  = req.getParameter("username") != null  ? req.getParameter("username")  : ""; 
        String passsword = req.getParameter("password") != null  ? req.getParameter("password")  : "";
        
-        System.out.println(username + " pass:=" + passsword);
-       
-       if(username.equals("root") && passsword.equals("birone89") ){
-          req.getRequestDispatcher("/main").forward(req, resp);
+       if(!username.equals("")){
            
-       } else{
-         forwardView(req, resp, "index.jsp");  
-       }
-     ///  forwardView(req, resp, "index.jsp");  
+            user.setUsername(username);
+            user.setPassword(passsword);
        
+            if(userService.userExists(user)){
+
+                session.setAttribute("user", user);
+                session.setAttribute("isLogin", true);
+                resp.sendRedirect("/jadminsql/main");
+
+
+            } else{ 
+                req.setAttribute("username", username);
+                req.setAttribute("error", "login or password wrong!!!");
+                forwardView(req, resp, "index.jsp");
+            }   
+            
+       } else{ forwardView(req, resp, "index.jsp");  } 
+       
+         
     }
  
 }

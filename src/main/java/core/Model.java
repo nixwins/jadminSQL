@@ -17,34 +17,13 @@ import java.util.logging.Logger;
  *
  * @author admin
  */
-public class Model {
+public class Model  {
+    
+    protected final DBConnect dbConnect = new DBConnect();
         
-    protected DBConnect dbcon = null;
     protected Connection connection;
-    protected Statement stmt;
-    protected ResultSet rs;
-    
+
     public Model(){
- 
-        try {
-            dbcon = new DBConnect();
-            connection = dbcon.getConnection();
-            stmt = connection.createStatement();
-        } catch (SQLException ex) {
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    protected void shutdown(){
-    
-        try {
-            
-            rs.close();
-            stmt.close();
-            connection.close();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       // connection = DBConnect.getConnection();
     }
 }

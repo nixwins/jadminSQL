@@ -88,6 +88,11 @@ main{
     height: 24px;
     line-height: 1 !important;
 }
+
+.err-login{
+    color:red;
+    font-style: italic;
+}
 /*Options*/
 
 .margin-zero{

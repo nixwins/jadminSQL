@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html >
-<head>
-    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link type="text/css" rel="stylesheet" href="<%= request.getContextPath() %>/public/assets/css/materialize.min.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="<%= request.getContextPath() %>/public/assets/css/main.css"  media="screen,projection"/>
-    <!--<link type="text/css" rel="stylesheet" href="../assets/css/main.css"  media="screen,projection"/>-->
-    
-    <title>Document</title>
-</head>
-<body>
+<jsp:include page="include/header.jsp" />
+
     <header>
         <div class="navbar-main"><a href="#">JAdminSQL for MySQL</a></div>
     </header>
@@ -24,10 +13,10 @@
                 <div class='col s12'>
                 </div>
               </div>
-  
+               <%  String username = (String)request.getAttribute("username"); %>
               <div class='row'>
                 <div class='input-field col s12'>
-                  <input class='validate' type='text' name='username' id='username' />
+                    <input class='validate' type='text' name='username' id='username' value="<%= username != null ? username: "" %>" />
                   <label for='username'>User name</label>
                 </div>
               </div>
@@ -36,6 +25,22 @@
                 <div class='input-field col s12'>
                   <input class='validate' type='password' name='password' id='password' />
                   <label for='password'>Enter your password</label>
+                </div>
+              </div>
+                
+                <div class='row'>
+                <div class='input-field col s12'>
+                    <% 
+                       
+                        String error = (String)request.getAttribute("error"); 
+                        
+                        if(error != null){
+                    
+                    %>
+                    
+                    <p class="err-login"> <%= error %>  </p>
+                    
+                   <% } %>
                 </div>
               </div>
               
@@ -49,8 +54,4 @@
       
         </div>
         </div>
-     <script type="text/javascript" src="<%= request.getContextPath() +  "/public/assets/js/materialize.min.js" %>"></script>
-     <script type="text/javascript" src="<%= request.getContextPath() +  "/public/assets/js/main.js" %>"></script>
-
-</body>
-</html>
+    <jsp:include page="include/footer.jsp" />

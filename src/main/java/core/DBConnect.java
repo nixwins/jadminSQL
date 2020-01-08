@@ -12,23 +12,35 @@ import java.util.logging.Logger;
 
 public class DBConnect {
 
-    private final String url = "jdbc:mysql://localhost:3306/?serverTimezone=Europe/Moscow&useSSL=false";
-    private final String user = "root";
-    private final String password = "birone89";
+    private static final String url = "jdbc:mysql://localhost:3306/?serverTimezone=Europe/Moscow&useSSL=false";
+    private static final String user = "root";
+    private static final String password = "";
+    private static Connection connection = null; 
 
 
-    public Connection getConnection() {
-        
-        Connection connection = null;       
-         
+    public static Connection getConnection() {
+
         try {
             connection =  DriverManager.getConnection(url, user, password);
             
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+        }finally{
+            connection = null;
         }
         
         return connection;
+    }
+    
+    public Connection createConnection(String user, String password){
+        try {
+            connection =  DriverManager.getConnection(url, user, password);
+            
+        } catch (SQLException ex) {
+            System.out.println("Error code : " + ex.getErrorCode());
+        }
+        
+        return connection; 
     }
     
     public DBConnect(){
