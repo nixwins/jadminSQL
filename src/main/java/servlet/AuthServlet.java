@@ -33,36 +33,53 @@ public class AuthServlet extends BaseHttpServlet{
            
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       
+
        session = req.getSession();
-       session.setAttribute("isLogin", false);
-       
+      // session.setAttribute("isLogin", false);
        User user = new User();
        UserService userService = new UserService();
        
        String username  = req.getParameter("username") != null  ? req.getParameter("username")  : ""; 
        String passsword = req.getParameter("password") != null  ? req.getParameter("password")  : "";
-       
-       if(!username.equals("")){
-           
-            user.setUsername(username);
-            user.setPassword(passsword);
-       
-            if(userService.userExists(user)){
-
-                session.setAttribute("user", user);
-                session.setAttribute("isLogin", true);
-                resp.sendRedirect("/jadminsql/main");
-
-
-            } else{ 
-                req.setAttribute("username", username);
-                req.setAttribute("error", "login or password wrong!!!");
-                forwardView(req, resp, "index.jsp");
-            }   
+              
+      /// boolean isLogin = (boolean)session.getAttribute("isLogin");
+       if(session.getAttribute("isLogin") != null && session.getAttribute("isLogin").equals(true)){
+           if(!username.equals("")){
+                 user.setUsername(username);
+           }
+            session.setAttribute("user", user);
+            session.setAttribute("isLogin", true);
             
-       } else{ forwardView(req, resp, "index.jsp");  } 
+            resp.sendRedirect("/jadminsql/main");
+            
+       }else{
+      
+      
+
+            if(!username.equals("")){
+
+                 user.setUsername(username);
+                 user.setPassword(passsword);
+
+                 if(userService.userExists(user)){
+
+                     session.setAttribute("user", user);
+                     session.setAttribute("isLogin", true);
+                     resp.sendRedirect("/jadminsql/main");
+
+
+                 } else{ 
+                     req.setAttribute("username", username);
+                     req.setAttribute("error", "login or password wrong!!!");
+                     forwardView(req, resp, "index.jsp");
+                 }   
+
+            } else{ forwardView(req, resp, "index.jsp");  } 
        
+           
+       }
+      
+      
          
     }
  

@@ -1,31 +1,43 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="model.entity.User"%>
 <jsp:include page="include/header.jsp"/>
-        <div class="container-max">
-            <header >
-                <nav class="navbar-main navbar-inner"> 
+<% 
+    User user = (User)session.getAttribute("user");
+     List<String> dbs = (ArrayList) request.getAttribute("dbs");
 
+%>
+        <div class="container-max">
+            
+                <nav class="navbar-main navbar-inner"> 
+                    <li><a href="/jadminsql/main?logout=true">Logout</a></li>
                 </nav>
 
                 <ul id="slide-out" class="sidenav sidenav-fixed collapsible">
-                    <li><a href="#"  class="logo waves-effect">JAdminSQL</a></li>
-                    <li><a class="waves-effect"><i class="material-icons">dns</i>Databases</a></li>
+                    <li>
+                        <a href="#"  class="logo waves-effect">JAdminSQL</a>
+                  
+                    </li>
+                    <li><a class="waves-effect"><i class="material-icons">dns</i>      <%= user.getUsername() %>@localhost </a></li>
                     <li><div class="divider"></div></li>
-
+                       <% for(String dbname : dbs) { %>
                     <li >
-                        <a href="#" class="waves-effect collapsible-header"><i class="material-icons">storage</i>SomeDB</a>
+                        <a href="#" class="waves-effect collapsible-header"><i class="material-icons">storage</i> <%= dbname %> </a>
                         <div class="collapsible-body">
                             <ul>
-                                <li><a href="auto-init.html">Auto Init</a></li>
-                                <li><a href="carousel.html">Carousel</a></li>
-                                <li class="active"><a href="collapsible.html">Collapsible</a></li>
-                                <li><a href="dropdown.html">Dropdown</a></li>                   
+                                <% for(String dtblname : dbs) { %>
+                                                         
+                                <li><a href="dropdown.html"><%= dtblname %></a></li> 
+                                <% } %>
                             </ul>
 
                         </div>
 
                     </li>
+                        <% } %>
                 </ul>
 
-            </header>
+            
             <main>
                 <h1 class="som">
                     some data
