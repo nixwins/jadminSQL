@@ -20,7 +20,9 @@ import java.util.logging.Logger;
 public class Model  {
     
     protected final DBConnect dbConnect = new DBConnect();
-        
+            
+    protected Statement stmt = null;
+    protected ResultSet rs = null;
     protected Connection connection;
 
     public Model(){

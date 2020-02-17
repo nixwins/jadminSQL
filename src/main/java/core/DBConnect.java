@@ -12,13 +12,13 @@ import java.util.logging.Logger;
 
 public class DBConnect {
 
-    private static final String url = "jdbc:mysql://localhost:3306/?serverTimezone=Europe/Moscow&useSSL=false";
-    private static final String user = "root";
-    private static final String password = "";
-    private static Connection connection = null; 
+    private  final String url = "jdbc:mysql://localhost:3306/?serverTimezone=Europe/Moscow&useSSL=false";
+    private  final String user = "root";
+    private  final String password = "birone89";
+    private  Connection connection; 
 
 
-    public static Connection getConnection() {
+    public Connection getConnection() {
 
         try {
             connection =  DriverManager.getConnection(url, user, password);
@@ -26,7 +26,7 @@ public class DBConnect {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }finally{
-            connection = null;
+            //connection = null;
         }
         
         return connection;

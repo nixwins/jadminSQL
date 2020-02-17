@@ -5,6 +5,7 @@
  */
 package model;
 
+import core.DBConnect;
 import core.Model;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,24 +21,32 @@ import java.util.logging.Logger;
  * @author admin
  */
 public class Database extends Model{
+
+    //private Connection conn;
+    
     
     public List<String> getListDatabase(){
         
            /// Connection conn = dbcon.getConnection();
+           
             
             List<String> listDatabase =  new ArrayList();
             
             try {
                 
-                 stmt = connection.createStatement();
-                 rs  = stmt.executeQuery("SHOW DATABASES");
+                connection = dbConnect.getConnection();
+                stmt = connection.createStatement();
+                System.out.println("CONNN = " + connection);
+                
+                if(connection != null){
+                    
+                //stmt = connection.createStatement();
+                rs  = stmt.executeQuery("SHOW DATABASES");
                 
                 while(rs.next()){
                     listDatabase.add(rs.getString("Database"));
-                    
                 }
-                
-                shutdown();
+            }
                 
             } catch (SQLException ex) {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);

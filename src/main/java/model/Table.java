@@ -8,6 +8,7 @@ package model;
 import core.Model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,13 +22,15 @@ import model.entity.Column;
  * @author admin
  */
 public class Table extends Model{
-
+    private Statement stmt = null;
+    private ResultSet rs = null;
 
     public List<String> getAllTable(String database){
           
         List<String> tbList = new ArrayList();
           
         try {
+           stmt = connection.createStatement();
           
             stmt.executeQuery("USE " + database);
             rs = stmt.executeQuery("SHOW TABLES");
@@ -38,8 +41,11 @@ public class Table extends Model{
             
             //shutdown();
             
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
+        
             Logger.getLogger(Table.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+     
         }
         
          return tbList;
@@ -50,6 +56,7 @@ public class Table extends Model{
         List<Column> tblStructList = new ArrayList();
           
         try {
+               stmt = connection.createStatement();
           
             rs = stmt.executeQuery("select * from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME='"+table + "'");
                     
