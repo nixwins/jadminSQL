@@ -31,19 +31,19 @@ public class MainServlet extends BaseHttpServlet {
         
         HttpSession session = req.getSession();
         User user = new User();
-        System.out.println(req.getAttribute("logout"));
+        System.out.println(req.getAttribute("isLogin"));
           
-       if(req.getAttribute("logout") != null && req.getAttribute("logout").equals(true)){
-           
-           session.setAttribute("isLogin", false);
-           session.setAttribute("user", null);
-           resp.sendRedirect("/jadminsql/");
+       if(req.getAttribute("isLogin") != null && (boolean)req.getAttribute("isLogin") == false){
+           session.invalidate();  
+//           session.setAttribute("isLogin", false);
+//           session.setAttribute("user", null);
+          forwardView(req, resp, "index.jsp");
            System.out.println("Logout!!!!");
            
         }else{
-                isLogin = (boolean)session.getAttribute("isLogin");
+                isLogin = session.getAttribute("isLogin") != null ? (boolean)session.getAttribute("isLogin") : false;
 
-                 if(isLogin){
+                 if(isLogin == true){
                      Database dbs = new Database();
                      req.setAttribute("dbs", dbs.getListDatabase());
                    //resp.getWriter().write(user.getUsername());  
@@ -51,7 +51,7 @@ public class MainServlet extends BaseHttpServlet {
                  }
                  else{
                       //resp.getWriter().write(Boolean.toString(isLogin));
-                    resp.sendRedirect("/jadminsql/auth");
+                      resp.sendRedirect("/jadminsql/auth");
                  }
        }
      
